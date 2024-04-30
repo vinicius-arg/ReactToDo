@@ -1,0 +1,75 @@
+body {
+  margin: 0;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+}
+
+ul {
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.navbar ul {
+  max-width: 200px;
+}
+
+main {
+  display: flex;
+}
+
+aside {
+  height: 100vh;
+  padding: 1.5rem;
+  border-right: solid 1px #000;
+}
+
+.title {
+  padding-bottom: 2rem;
+  border-bottom: solid 1px #000;
+}
+
+.item {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+}
+
+span {
+  display: flex;
+  align-items: center;
+}
+
+.checkbox-container {
+  position: relative;
+  width: 1rem;
+  height: 1rem;
+  margin-right: 0.5rem;
+}
+
+.checkmark {
+  display: inline-block;
+  background-color: #000;
+  height: 100%;
+  width: 100%;
+}
+
+.checkbox {
+  position: absolute;
+  margin: 0;
+  width: 100%;
+  height: 100%;
+  opacity: 0.5;
+}
+
+.task-completed {
+  text-decoration: line-through;
+  color: #555;
+}
+
+.note-content {
+  padding: 20px;
+}
