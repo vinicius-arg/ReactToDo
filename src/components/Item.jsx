@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons"; 
 
 function Item({handleClick, close, doneTask, title, id, done, checkBox}) {
     const [deleted, setDeleted] = useState(false);
@@ -23,7 +25,7 @@ function Item({handleClick, close, doneTask, title, id, done, checkBox}) {
                     {input}
                     <p className={ done ? "task-completed" : "" }>{title}</p>
                 </span>
-                <span onClick={del} className="delete">X</span>
+                <FontAwesomeIcon onClick={del} icon={faTrashCan} className="delete" />
             </li>
         );
 }

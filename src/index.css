@@ -26,6 +26,10 @@ ul {
   width: 100%;
 }
 
+.note-content .item {
+  width: 500px;
+}
+
 .navbar .item {
   border-radius: 8px;
   transition: 200ms;
@@ -93,6 +97,11 @@ aside {
 
 .delete {
   opacity: 0;
+}
+
+.delete:hover {
+  color: #929292;
+  cursor: pointer;
 }
 
 span {
@@ -189,6 +198,11 @@ span {
 .form .close {
   position: absolute;
   cursor: pointer;
-  right: 10px;
-  top: 10px;
+  transition: 200ms;
+  right: 18px;
+  top: 5px;
+}
+
+.form .close:hover {
+  color: #929292;
 }

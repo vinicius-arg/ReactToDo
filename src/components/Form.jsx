@@ -1,4 +1,6 @@
 import React, { useState } from "react";
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import ScreenProtector from "./ScreenProtector";
 
 function Form({title, hideForm, onAdd, Class, parentId}) {
@@ -18,7 +20,7 @@ function Form({title, hideForm, onAdd, Class, parentId}) {
         hideForm();
     }
 
-    function del() {
+    function close() {
         hideForm();
     }
 
@@ -26,7 +28,7 @@ function Form({title, hideForm, onAdd, Class, parentId}) {
         <ScreenProtector/>
         <form className="form">
             <h2>{title}</h2>
-            <span onClick={del} className="close">X</span>
+            <FontAwesomeIcon onClick={close} icon={faXmark} className="close"/>
             <input onChange={handleChange} type="text" value={text}></input>
             <button className="submit" onClick={addItem}>Submit</button>
         </form>
