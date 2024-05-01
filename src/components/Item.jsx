@@ -1,12 +1,12 @@
 import React, { useState } from "react";
 
-function Item({handleClick, closeNote, doneTask, title, id, done, checkBox}) {
+function Item({handleClick, close, doneTask, title, id, done, checkBox}) {
     const [deleted, setDeleted] = useState(false);
 
     function del(event) {
         event.stopPropagation();
         setDeleted(true);
-        closeNote(id);
+        close(id);
     }
 
     // Included in case of checkable item

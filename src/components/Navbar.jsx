@@ -1,19 +1,25 @@
-import React from "react";
+import React, { useState } from "react";
 import Item from "./Item";
 import Form from "./Form";
 import Note from "../classes/Note";
 
 function Navbar({notes, handleNotes, addNote, closeNote}) {
+    const [showForm, setShowForm] = useState(false);
+
     function add() {
-        console.log('new note');
+        setShowForm(true);
+    }
+
+    function hideForm() {
+        setShowForm(false);
     }
 
     return(<nav className="navbar">
             <ul>
-                {notes.map(item => <Item handleClick={handleNotes} title={item.title} id={item.id} closeNote={closeNote}></Item>)} 
-                <li onClick={add} key="#">+ Create new note</li>
+                {notes.map(item => <Item handleClick={handleNotes} title={item.title} id={item.id} close={closeNote}/>)} 
+                <li className="create-btn" onClick={add} key="#">+ Create new note</li>
             </ul>
-            <Form title="Create new note" onAdd={addNote} Class={Note}></Form>
+            { showForm ? <Form title="Create new note" hideForm={hideForm} onAdd={addNote} Class={Note}/> : <></>}
         </nav>);
 }
 

@@ -1,6 +1,7 @@
 import React, { useState } from "react";
+import ScreenProtector from "./ScreenProtector";
 
-function Form({title, onAdd, Class, parentId}) {
+function Form({title, hideForm, onAdd, Class, parentId}) {
     const [text, setText] = useState('');
 
     // Changes the state text for the input value
@@ -14,14 +15,22 @@ function Form({title, onAdd, Class, parentId}) {
         event.preventDefault();
         onAdd(new Class(text, parentId));
         setText('');
+        hideForm();
     }
 
-    return(<form className="form">
-        <h2>{title}</h2>
-        <span className="close">X</span>
-        <input onChange={handleChange} type="text" value={text}></input>
-        <button className="submit" onClick={addItem}>Submit</button>
-    </form>);
+    function del() {
+        hideForm();
+    }
+
+    return(<>
+        <ScreenProtector/>
+        <form className="form">
+            <h2>{title}</h2>
+            <span onClick={del} className="close">X</span>
+            <input onChange={handleChange} type="text" value={text}></input>
+            <button className="submit" onClick={addItem}>Submit</button>
+        </form>
+    </>);
 }
 
 export default Form;
