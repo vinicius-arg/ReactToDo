@@ -13,7 +13,7 @@ function Navbar({notes, handleNotes, addNote, closeNote}) {
                 {notes.map(item => <Item handleClick={handleNotes} title={item.title} id={item.id} closeNote={closeNote}></Item>)} 
                 <li onClick={add} key="#">+ Create new note</li>
             </ul>
-            <Form onAdd={addNote} Class={Note}></Form>
+            <Form title="Create new note" onAdd={addNote} Class={Note}></Form>
         </nav>);
 }
 

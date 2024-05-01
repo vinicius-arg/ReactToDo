@@ -15,7 +15,7 @@ function Container({note, id, addTask, doneTask}) {
                     {note.content.map(item => <Item handleClick={() => {}} doneTask={doneTask} title={item.text} id={item.id} done={item.done} checkBox={true}></Item>)}
                     <li onClick={add} key="#">+ Create new task</li>
                 </ul>
-                <Form onAdd={addTask} Class={Task} parentId={id}></Form>
+                <Form  title="Create new task" onAdd={addTask} Class={Task} parentId={id}></Form>
             </div>);
     } else {
         return(

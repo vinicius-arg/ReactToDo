@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 
-function Form({onAdd, Class, parentId}) {
+function Form({title, onAdd, Class, parentId}) {
     const [text, setText] = useState('');
 
     // Changes the state text for the input value
@@ -16,9 +16,11 @@ function Form({onAdd, Class, parentId}) {
         setText('');
     }
 
-    return(<form>
+    return(<form className="form">
+        <h2>{title}</h2>
+        <span className="close">X</span>
         <input onChange={handleChange} type="text" value={text}></input>
-        <button onClick={addItem}>Add</button>
+        <button className="submit" onClick={addItem}>Submit</button>
     </form>);
 }
 

@@ -1,9 +1,9 @@
 import React from "react";
 
 function Title({title}) {
-    return(
-        <h1 className="title">{title}</h1>
-    );
+    return(<div className="title">
+        <h1>{title}</h1>
+    </div>);
 }
 
 export default Title;
