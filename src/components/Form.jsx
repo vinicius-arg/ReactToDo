@@ -1,7 +1,7 @@
 import React, { useState } from "react";
+import ScreenProtector from "./ScreenProtector";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
-import ScreenProtector from "./ScreenProtector";
 
 function Form({title, hideForm, onAdd, Class, parentId}) {
     const [text, setText] = useState('');

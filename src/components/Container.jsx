@@ -4,24 +4,24 @@ import Item from "./Item";
 import Form from "./Form";
 
 function Container({note, id, addTask, doneTask}) {    
-    const [showForm, setShowForm] = useState('');
+    const [formVisible, setFormVisible] = useState(false);
 
-    function add() {
-        setShowForm("show-form");
+    function showForm() {
+        setFormVisible(true);
     }
 
     function hideForm() {
-        setShowForm('');
+        setFormVisible(false);
     }
     
     if (id >= 0 && id != null) {
         return(<div className="container">
                 <h2>{note.title}</h2>
                 <ul>
-                    {note.content.map(item => <Item handleClick={() => {}} doneTask={doneTask} close={() => {}} title={item.text} id={item.id} done={item.done} checkBox={true}></Item>)}
-                    <li className="create-btn" onClick={add} key="#">+ Create new task</li>
+                    {note.content.map(item => <Item handleClick={() => {}} doneTask={doneTask} closeNote={() => {}} title={item.text} id={item.id} done={item.done} checkBox={true}></Item>)}
+                    <li className="create-btn" onClick={showForm} key="#">+ Create new task</li>
                 </ul>
-                { showForm ? <Form  title="Create new task" hideForm={hideForm} onAdd={addTask} Class={Task} parentId={id}/> : <></> }
+                { formVisible ? <Form  title="Create new task" hideForm={hideForm} onAdd={addTask} Class={Task} parentId={id}/> : <></> }
             </div>);
     } else {
         return(

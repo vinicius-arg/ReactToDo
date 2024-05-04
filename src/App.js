@@ -5,24 +5,24 @@ import Container from "./components/Container";
 
 function App() {
     const [id, setId] = useState(null);
-    const [items, setItems] = useState([]);
-    const [tasks, setTasks] = useState(items[id] ? items[id].content : []);
+    const [notes, setNotes] = useState([]);
+    const [tasks, setTasks] = useState(notes[id] ? notes[id].content : []);
 
     // Handle what note container shows by id
     function handleNotes(id) {
         setId(id);
     }
 
-    function addNote(item) {
-        setItems([...items, item]);
+    function addNote(note) {
+        setNotes([...notes, note]);
     }
 
     function addTask(task) {
-        let newItems = [...items];
-        newItems[id].content.push(task); 
+        let newnotes = [...notes];
+        newnotes[id].content.push(task);
 
-        setTasks([...items[id].content, task]);
-        setItems(newItems);
+        setTasks([...notes[id].content]);
+        setNotes(newnotes);
     }
 
     // Closes the note in container in case of open-deleted
@@ -42,10 +42,10 @@ function App() {
         <main>
             <aside className="toolbar">
                 <Title title="Your Tasks"></Title>
-                <Navbar notes={items} handleNotes={handleNotes} addNote={addNote} closeNote={closeNote}></Navbar>
+                <Navbar notes={notes} handleNotes={handleNotes} addNote={addNote} closeNote={closeNote}></Navbar>
             </aside>
             <section className="note-content">
-                <Container note={items[id]} tasks={tasks} id={id} addTask={addTask} doneTask={doneTask}></Container>
+                <Container note={notes[id]} id={id} addTask={addTask} doneTask={doneTask}></Container>
             </section>
         </main>
     </>);

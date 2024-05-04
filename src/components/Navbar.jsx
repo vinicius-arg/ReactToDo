@@ -4,22 +4,22 @@ import Form from "./Form";
 import Note from "../classes/Note";
 
 function Navbar({notes, handleNotes, addNote, closeNote}) {
-    const [showForm, setShowForm] = useState(false);
+    const [formVisible, setFormVisible] = useState(false);
 
-    function add() {
-        setShowForm(true);
+    function showForm() {
+        setFormVisible(true);
     }
 
     function hideForm() {
-        setShowForm(false);
+        setFormVisible(false);
     }
 
     return(<nav className="navbar">
             <ul>
-                {notes.map(item => <Item handleClick={handleNotes} title={item.title} id={item.id} close={closeNote}/>)} 
-                <li className="create-btn" onClick={add} key="#">+ Create new note</li>
+                {notes.map(item => <Item handleClick={handleNotes} title={item.title} id={item.id} closeNote={closeNote}/>)} 
+                <li className="create-btn" onClick={showForm} key="#">+ Create new note</li>
             </ul>
-            { showForm ? <Form title="Create new note" hideForm={hideForm} onAdd={addNote} Class={Note}/> : <></>}
+            { formVisible ? <Form title="Create new note" hideForm={hideForm} onAdd={addNote} Class={Note}/> : <></>}
         </nav>);
 }
 

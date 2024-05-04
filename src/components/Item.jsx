@@ -2,13 +2,13 @@ import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons"; 
 
-function Item({handleClick, close, doneTask, title, id, done, checkBox}) {
+function Item({handleClick, closeNote, doneTask, title, id, done, checkBox}) {
     const [deleted, setDeleted] = useState(false);
 
     function del(event) {
         event.stopPropagation();
         setDeleted(true);
-        close(id);
+        closeNote(id);
     }
 
     // Included in case of checkable item
