@@ -19,7 +19,7 @@ function Container({note, id, addTask, doneTask}) {
                 <h2>{note.title}</h2>
                 <ul>
                     {note.content.map(item => <Item handleClick={() => {}} doneTask={doneTask} closeNote={() => {}} title={item.text} id={item.id} done={item.done} checkBox={true}></Item>)}
-                    <li className="create-btn" onClick={showForm} key="#">+ Create new task</li>
+                    <li className="create-btn" onClick={showForm} key="#"><button>+ Create new task</button></li>
                 </ul>
                 { formVisible ? <Form  title="Create new task" hideForm={hideForm} onAdd={addTask} Class={Task} parentId={id}/> : <></> }
             </div>);

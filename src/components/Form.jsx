@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useEffect, useState, useRef } from "react";
 import ScreenProtector from "./ScreenProtector";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
@@ -6,7 +6,12 @@ import { faXmark } from "@fortawesome/free-solid-svg-icons";
 function Form({title, hideForm, onAdd, Class, parentId}) {
     const [text, setText] = useState('');
 
-    // Changes the state text for the input value
+    const inputRef = useRef(null);
+
+    // Focus on input when form opens
+    useEffect(() => { inputRef.current.focus(); }, []);
+
+    // Changes the state "text" for the input value
     function handleChange(event) {
         let text = event.target.value;
         setText(text);
@@ -29,7 +34,7 @@ function Form({title, hideForm, onAdd, Class, parentId}) {
         <form className="form">
             <h2>{title}</h2>
             <FontAwesomeIcon onClick={close} icon={faXmark} className="close"/>
-            <input onChange={handleChange} type="text" value={text}></input>
+            <input ref={inputRef} onChange={handleChange} type="text" value={text}></input>
             <button className="submit" onClick={addItem}>Submit</button>
         </form>
     </>);
