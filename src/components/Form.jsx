@@ -3,7 +3,7 @@ import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 import ScreenProtector from "./ScreenProtector";
 
-function Form({title, hideForm, onAdd, Class, parentId}) {
+function Form(props) {
     const [text, setText] = useState('');
 
     // Changes the state text for the input value
@@ -15,19 +15,19 @@ function Form({title, hideForm, onAdd, Class, parentId}) {
     // Submits the form
     function addItem(event) {
         event.preventDefault();
-        onAdd(new Class(text, parentId));
+        props.onAdd(new props.class(text, props.parentId));
         setText('');
-        hideForm();
+        props.hideForm();
     }
 
     function close() {
-        hideForm();
+        props.hideForm();
     }
 
     return(<>
         <ScreenProtector/>
         <form className="form">
-            <h2>{title}</h2>
+            <h2>{props.title}</h2>
             <FontAwesomeIcon onClick={close} icon={faXmark} className="close"/>
             <input onChange={handleChange} type="text" value={text}></input>
             <button className="submit" onClick={addItem}>Submit</button>

@@ -1,29 +1,29 @@
 import React, { useState } from "react";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { faTrashCan } from "@fortawesome/free-regular-svg-icons"; 
+import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 
-function Item({handleClick, close, doneTask, title, id, done, checkBox}) {
+function Item(props) {
     const [deleted, setDeleted] = useState(false);
 
     function del(event) {
         event.stopPropagation();
         setDeleted(true);
-        close(id);
+        props.closeNote(props.id);
     }
 
     // Included in case of checkable item
-    const input = checkBox ?
+    const input = props.checkBox ?
         <span className="checkbox-container">
-            <input onChange={event => { doneTask(event, id) }} className="checkbox" type="checkbox" checked={done}></input>
+            <input onChange={event => { props.doneTask(event, props.id) }} className="checkbox" type="checkbox" checked={props.done}></input>
             <span className="checkmark"></span>
         </span> : <></>
 
     if (!deleted)
         return(
-            <li onClick={() => handleClick(id)} className="item" key={id}>
+            <li onClick={() => props.handleClick(props.id)} className="item" key={props.id}> 
                 <span>
                     {input}
-                    <p className={ done ? "task-completed" : "" }>{title}</p>
+                    <p className={ props.done ? "task-completed" : "" }>{props.title}</p>
                 </span>
                 <FontAwesomeIcon onClick={del} icon={faTrashCan} className="delete" />
             </li>

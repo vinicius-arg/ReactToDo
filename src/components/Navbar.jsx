@@ -1,25 +1,15 @@
-import React, { useState } from "react";
-import Item from "./Item";
+import React from "react";
 import Form from "./Form";
 import Note from "../classes/Note";
+import Item from "./Item";
 
-function Navbar({notes, handleNotes, addNote, closeNote}) {
-    const [showForm, setShowForm] = useState(false);
-
-    function add() {
-        setShowForm(true);
-    }
-
-    function hideForm() {
-        setShowForm(false);
-    }
-
+function Navbar(props) {
     return(<nav className="navbar">
             <ul>
-                {notes.map(item => <Item handleClick={handleNotes} title={item.title} id={item.id} close={closeNote}/>)} 
-                <li className="create-btn" onClick={add} key="#">+ Create new note</li>
+                {props.notes.map(item => <Item handleClick={props.handleNotes} title={item.title} id={item.id} closeNote={props.closeNote} />)} 
+                <li className="create-btn" onClick={props.showForm} key="#">+ Create new note</li>
             </ul>
-            { showForm ? <Form title="Create new note" hideForm={hideForm} onAdd={addNote} Class={Note}/> : <></>}
+            { props.formVisible ? <Form  title="Create new note" hideForm={props.hideForm} onAdd={props.addNote} class={Note}/> : <></> }
         </nav>);
 }
 

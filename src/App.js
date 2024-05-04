@@ -5,8 +5,16 @@ import Container from "./components/Container";
 
 function App() {
     const [id, setId] = useState(null);
-    const [items, setItems] = useState([]);
-    const [tasks, setTasks] = useState(items[id] ? items[id].content : []);
+    const [notes, setNotes] = useState([]);
+    const [formVisible, setFormVisible] = useState(false);
+
+    function showForm() {
+        setFormVisible(true);
+    }
+
+    function hideForm() {
+        setFormVisible(false);
+    }
 
     // Handle what note container shows by id
     function handleNotes(id) {
@@ -14,38 +22,32 @@ function App() {
     }
 
     function addNote(item) {
-        setItems([...items, item]);
+        setNotes([...notes, item]);
     }
 
-    function addTask(task) {
-        let newItems = [...items];
-        newItems[id].content.push(task); 
-
-        setTasks([...items[id].content, task]);
-        setItems(newItems);
+    function updateNotes(tasks) {
+        if (notes[id]) {
+            console.log(notes[id], tasks)
+            let newNotes = [...notes];
+            newNotes[id].content = [...tasks];
+    
+            setNotes(newNotes);
+        }
     }
-
+    
     // Closes the note in container in case of open-deleted
     function closeNote(childId) {
         if (childId === id) setId(null);
     }
 
-    // Mark a task as completed
-    function doneTask(event, taskId) {
-        let newTasks = [...tasks];
-        newTasks[taskId].done = event.target.checked;
-
-        setTasks([...tasks]);
-    }
-
     return(<>
         <main>
             <aside className="toolbar">
-                <Title title="Your Tasks"></Title>
-                <Navbar notes={items} handleNotes={handleNotes} addNote={addNote} closeNote={closeNote}></Navbar>
+                <Title title="Your Tasks" />
+                <Navbar notes={notes} handleNotes={handleNotes} closeNote={closeNote} addNote={addNote} showForm={showForm} hideForm={hideForm} formVisible={formVisible}/>
             </aside>
             <section className="note-content">
-                <Container note={items[id]} tasks={tasks} id={id} addTask={addTask} doneTask={doneTask}></Container>
+                <Container note={notes[id]} id={id} updateNotes={updateNotes} showForm={showForm} hideForm={hideForm} formVisible={formVisible} />
             </section>
         </main>
     </>);
