@@ -19,8 +19,8 @@ function Item({handleClick, closeNote, doneTask, title, id, done, checkBox}) {
     // Included in case of checkable item
     const input = checkBox ?
         <span className="checkbox-container">
-            <input id="checkbox" onChange={event => { doneTask(event, id) }} className="checkbox" type="checkbox" checked={done}></input>
-            <label htmlFor="checkbox" className={checkmarkClasses}>{ done ? <FontAwesomeIcon icon={faCheck} className="check-icon" /> : <></> }</label>
+            <input id={`task-${id}`} onChange={event => { doneTask(event, id) }} className="checkbox" type="checkbox" checked={done}></input>
+            <label htmlFor={`task-${id}`} className={checkmarkClasses}>{ done ? <FontAwesomeIcon icon={faCheck} className="check-icon" /> : <></> }</label>
         </span> : <></>
 
     if (!deleted)
