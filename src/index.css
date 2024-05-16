@@ -1,4 +1,5 @@
 @import url('https://fonts.googleapis.com/css2?family=Just+Me+Again+Down+Here&display=swap');
+@import url('./media-queries.css');
 
 html {
   overflow: hidden;
@@ -40,6 +41,8 @@ ul {
 }
 
 .navbar {
+  width: 100%;
+  box-sizing: border-box;
   padding: 1rem;
   font-size: 12pt;
   overflow-y: auto;
@@ -47,11 +50,25 @@ ul {
 
 .note-content {
   width: 100%;
+  box-sizing: border-box;
 }
 
-.note-content .item {
-  width: 500px;
+.note-content .container {
+  width: 100%;
 }
+
+.back {
+  display: none;
+  position: fixed;
+  top: 15px;
+  left: 20px;
+  cursor: pointer;
+  transition: 200ms;
+}
+
+.back:hover {
+  transform: scale(1.2);
+} 
 
 .navbar .item {
   border-radius: 8px;
@@ -93,10 +110,6 @@ li {
   opacity: 0.8;
 }
 
-.navbar {
-  width: 250px;
-}
-
 main {
   display: flex;
 }
@@ -127,8 +140,11 @@ aside {
   justify-content: space-between;
 }
 
+
+
 .item p {
-  margin: 0;
+  margin: 0 5px;
+  box-sizing: border-box;
 }
 
 .item:hover .delete {

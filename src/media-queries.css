@@ -1,0 +1,30 @@
+@media (width <= 768px) {
+    main .note-content {
+        width: 60%px;
+    }
+
+    form.form {
+        width: 300px;
+    }
+}
+
+@media (width <= 500px) {
+    .back {
+       display: block !important;
+    }
+
+    aside.toolbar,
+    main .note-content {
+        width: 100%;
+        position: fixed;
+    }
+
+    .note-content {
+        height: 100vh;
+        margin-top: 20px;
+    }
+
+    .container ul {
+        width: 100%;
+    }
+}

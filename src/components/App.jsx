@@ -6,10 +6,13 @@ import Note from "../classes/Note";
 import Task from "../classes/Task";
 
 const APP_DATA_KEY = "appData";
+const MOBILE_WINDOW_SIZE = 500;
 
 function App() {
     const [id, setId] = useState(null);
     const [notes, setNotes] = useState([]);
+    const [navScreen, setNavScreen] = useState(true);
+    const [noteScreen, setNoteScreen] = useState(window.innerWidth > MOBILE_WINDOW_SIZE);
 
     // Pulls saved notes if it exists. Executes one time when page loads.
     useEffect(() => {
@@ -37,6 +40,11 @@ function App() {
     // Handle what note container shows by id
     function handleNotes(newId) {
         setId(newId);
+
+        if (window.innerWidth <= MOBILE_WINDOW_SIZE) {
+            setNavScreen(false);
+            setNoteScreen(true);
+        }
     }
 
     function addNote(note) {
@@ -81,15 +89,42 @@ function App() {
         setNotes(newNotes);
     }
 
+    function switchScreen() {
+        setNoteScreen(false);
+        setNavScreen(true);
+    }
+
+    function handleResize() {
+        if (window.innerWidth > MOBILE_WINDOW_SIZE) {
+            setNavScreen(true);
+            setNavScreen(true);
+        }  
+    }
+
+    window.onresize = handleResize;
+
     return(<>
         <main>
+            { navScreen ? 
             <aside className="toolbar">
                 <Title title="Your Tasks"></Title>
-                <Navbar notes={notes} handleNotes={handleNotes} addNote={addNote} delNote={delNote} closeNote={closeNote}></Navbar>
-            </aside>
-            <section className="note-content">
-                <Container note={notes[id]} id={id} addTask={addTask} doneTask={doneTask} delTask={delTask}></Container>
-            </section>
+                <Navbar notes={notes} 
+                        handleNotes={handleNotes} 
+                        addNote={addNote} 
+                        delNote={delNote} 
+                        closeNote={closeNote}>
+                </Navbar> 
+            </aside>  : <></> }
+            { noteScreen ? 
+                <section className="note-content">
+                <Container note={notes[id]} 
+                            id={id} 
+                            addTask={addTask} 
+                            doneTask={doneTask} 
+                            delTask={delTask} 
+                            switchScreen={switchScreen}>
+                </Container>
+                </section> : <></> }
         </main>
     </>);
 }
