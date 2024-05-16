@@ -3,9 +3,10 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
-function Item({handleClick, closeNote, doneTask, delTask, title, id, done, checkBox}) {
+function Item({handleClick, closeNote, doneTask, delTask, delNote, title, id, done, checkBox}) {
     function del(event) {
         event.stopPropagation();
+        delNote(id);
         delTask(id);
         closeNote(id);
     }
