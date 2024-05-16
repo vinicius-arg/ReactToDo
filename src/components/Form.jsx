@@ -35,7 +35,8 @@ function Form({title, hideForm, onAdd, Class, parentId}) {
             <h2>{title}</h2>
             <FontAwesomeIcon onClick={close} icon={faXmark} className="close"/>
             <input ref={inputRef} onChange={handleChange} type="text" value={text}></input>
-            <button className="submit" onClick={addItem}>Submit</button>
+            <button className={ text ? "submit" : "submit disabled-btn" } 
+                    onClick={ text ? addItem : e => { e.preventDefault() } }>Submit</button>
         </form>
     </>);
 }

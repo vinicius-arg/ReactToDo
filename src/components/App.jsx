@@ -5,13 +5,6 @@ import Container from "./Container";
 import Note from "../classes/Note";
 import Task from "../classes/Task";
 
-/*
-
-* Lidar com nomes grandes demais
-* Lidar com localStorage
-
-*/
-
 const APP_DATA_KEY = "appData";
 
 function App() {
@@ -66,9 +59,7 @@ function App() {
     function doneTask(event, taskId) {
         if (notes[id]) {
             const newNotes = [...notes];
-            newNotes[id].content.map(item => {
-                if (item.id === taskId) item.done = event.target.checked;
-            });
+            newNotes[id].content.map(item => (item.id === taskId) ? item.done = event.target.checked : item);
 
             setNotes(newNotes);
         }

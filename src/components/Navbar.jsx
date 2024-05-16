@@ -16,7 +16,7 @@ function Navbar({notes, handleNotes, addNote, delNote, closeNote}) {
     
     return(<nav className="navbar">
             <ul>
-                { notes.map(item => item ? <Item handleClick={handleNotes} delTask={() => {}} delNote={delNote} title={item.title} id={item.id} closeNote={closeNote} /> : <></>) } 
+                { notes.map(item => item ? <Item handleClick={handleNotes} delTask={() => {}} delNote={delNote} title={item.title} id={item.id} closeNote={closeNote} limit={16} /> : <></>) } 
                 <li className="create-btn" onClick={showForm} key="#"><button>+ Create new note</button></li>
             </ul>
             { formVisible ? <Form title="Create new note" hideForm={hideForm} onAdd={addNote} Class={Note}/> : <></>}
