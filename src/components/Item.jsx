@@ -1,9 +1,23 @@
 import React from "react";
+import { useDispatch } from "react-redux";
+import idActions from "../actions/idActions";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
 import { faCheck } from "@fortawesome/free-solid-svg-icons";
 
-function Item({handleClick, closeNote, doneTask, delTask, delNote, title, id, done, checkBox, limit}) {
+function Item({doneTask, delTask, delNote, title, id, done, checkBox, limit}) {
+    const dispatch = useDispatch();
+    
+    // Handle what note container shows by id
+    function setId() {
+        dispatch(idActions.set(id));
+    }
+
+    // Closes the note in container in case of open-deleted
+    function closeNote(childId) {
+        if (childId === id) dispatch(idActions.set(null));
+    }
+
     function del(event) {
         event.stopPropagation();
         delNote(id);
@@ -32,7 +46,7 @@ function Item({handleClick, closeNote, doneTask, delTask, delNote, title, id, do
         </span> : <></>
         
         return(
-            <li onClick={() => handleClick(id)} className="item" key={id}>
+            <li onClick={setId} className="item" key={id}>
                 <span>
                     {input}
                     <p className={pClasses}>{limitText(title)}</p>

@@ -1,11 +1,15 @@
 import React, { useState } from "react";
+import { useSelector } from "react-redux";
 import { faArrowLeft } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import Task from "../classes/Task";
 import Item from "./Item";
 import Form from "./Form";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 
-function Container({note, id, addTask, doneTask, delTask, switchScreen}) {    
+function Container({doneTask, delTask, switchScreen}) {   
+    const id = useSelector(state => state.id);
+    const note = useSelector(state => state.note[id]);
+
     const [formVisible, setFormVisible] = useState(false);
 
     function showForm() {
@@ -21,10 +25,10 @@ function Container({note, id, addTask, doneTask, delTask, switchScreen}) {
                 <FontAwesomeIcon onClick={switchScreen} icon={faArrowLeft} className="back" />
                 <h2>{note.title}</h2>
                 <ul>
-                    {note.content.map(item => item ? <Item handleClick={() => {}} doneTask={doneTask} closeNote={() => {}} delTask={delTask} delNote={() => {}} title={item.text} id={item.id} done={item.done} checkBox={true}></Item> : <></>) }
+                    {note.content.map(item => item ? <Item doneTask={doneTask} closeNote={() => {}} delTask={delTask} delNote={() => {}} title={item.text} id={item.id} done={item.done} checkBox={true}></Item> : <></>) }
                     <li className="create-btn" onClick={showForm} key="#"><button>+ Create new task</button></li>
                 </ul>
-                { formVisible ? <Form  title="Create new task" hideForm={hideForm} onAdd={addTask} Class={Task} parentId={id}/> : <></> }
+                { formVisible ? <Form  title="Create new task" hideForm={hideForm} Class={Task} parentId={id}/> : <></> }
             </div>);
     } else {
         return(

@@ -1,11 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
+import { useSelector, useDispatch } from "react-redux";
+import noteActions from "../actions/noteActions";
+import taskActions from "../actions/taskActions";
 import ScreenProtector from "./ScreenProtector";
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
-function Form({title, hideForm, onAdd, Class, parentId}) {
-    const [text, setText] = useState('');
+function Form({title, hideForm, Class, parentId}) {
+    const dispatch = useDispatch();
 
+    const [text, setText] = useState('');
     const inputRef = useRef(null);
 
     // Focus on input when form opens
@@ -17,10 +21,23 @@ function Form({title, hideForm, onAdd, Class, parentId}) {
         setText(text);
     }
 
+    // Dispatch functions
+    function addTask(task) {
+        dispatch(taskActions.add(task));
+    }
+
+    function addNote(note) {
+        dispatch(noteActions.add(note));
+    }
+
     // Submits the form
     function addItem(event) {
         event.preventDefault();
-        onAdd(new Class(text, parentId));
+        
+        if (Class.name === "Note") addNote(new Class(text));
+        else if (Class.name === "Task") addTask(new Class(text, parentId));
+        else throw console.error("Exception: Invalid class.");
+
         setText('');
         hideForm();
     }
