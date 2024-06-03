@@ -1,9 +1,9 @@
 class Note {
-    static lastId = 0;
+    static nextId = 0;
 
     constructor(text) {
         this.title = text;
-        this.id = Note.lastId++;
+        this.id = Note.nextId++;
         this.content = [];
     }
 }

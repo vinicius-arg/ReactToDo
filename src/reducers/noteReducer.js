@@ -1,35 +1,29 @@
-let newState;
+import { produce } from "immer";
 
-function noteReducer(state=[], action) {
-    switch(action.type) {
+const noteReducer = produce((draft, action) => {
+    switch (action.type) {
         case "ADD_NOTE":
-            return [...state, action.payload.note];
+            draft.push(action.payload.note);
+            break;
         case "DELETE_NOTE":
-            return [...state].splice(action.payload.id, 0, null);
+            draft.splice(action.payload.id, 1, null);
+            break;
+        case "LOAD_NOTES":
+            Object.assign(draft, action.payload.notes);
+            break;
         case "ADD_TASK":
-            newState = [...state];
-            newState[action.payload.noteId] = {
-                ...newState[action.payload.noteId],
-                content: [...newState[action.payload.noteId]?.content, action.payload.task]
-            };
-            return newState;
+            draft[action.payload.noteId].content.push(action.payload.task);
+            break;
         case "DELETE_TASK":
-            newState = [...state];
-            console.log(action.payload)
-            newState[action.payload.noteId] = {
-                ...newState[action.payload.noteId],
-                content: newState[action.payload.noteId].content.filter(item => item.id !== action.payload.taskId)
-            };
-            return newState;
-        case "DONE":
-            newState = [...state];
-            newState[action.payload.noteId].content.map(item => { 
-                if (item.id == action.payload.taskId) return { ...item, done: true };
-            });
-            return newState;
+            draft[action.payload.noteId].content.splice(action.payload.taskId, 1, null);
+            break;
+        case "TOGGLE_TASK":
+            const task = draft[action.payload.noteId].content.find(item => item.id === action.payload.taskId);
+            task.done = !task.done;
+            break;
         default:
-            return state;
+            break;
     }
-}
+}, []);
 
 export default noteReducer;

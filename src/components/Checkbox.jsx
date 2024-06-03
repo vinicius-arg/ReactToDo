@@ -11,15 +11,15 @@ function Checkbox({id, done}) {
     const dispatch = useDispatch();
 
     // Mark a task as completed
-    function doneTask(event, noteId, taskId) {
-        dispatch(taskActions.done(event.target.checked, noteId, taskId));
+    function doneTask(noteId, taskId) {
+        dispatch(taskActions.done(noteId, taskId));
     }
 
     // Styles that depends on "done" property
     const checkmarkClasses = done ? "checkmark checked" : "checkmark";
 
     return (<span className="checkbox-container">
-            <input id={`task-${id}`} onChange={event => { doneTask(event, noteId, id) }} className="checkbox" type="checkbox" checked={done}></input>
+            <input id={`task-${id}`} onChange={() => { doneTask(noteId, id) }} className="checkbox" type="checkbox" checked={done}></input>
             <label htmlFor={`task-${id}`} className={checkmarkClasses}>
                 { done ? <FontAwesomeIcon icon={faCheck} className="check-icon" /> : <></> }
             </label>

@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useSelector } from "react-redux";
 
 import Item from "./Item";
 import Form from "./Form";
@@ -33,8 +33,8 @@ function Navbar() {
     
     return(<nav className="navbar">
             <ul>
-                { notes.map(item => item ? <Item title={item.title} id={item.id} limit={limit} /> : <></>) } 
-                <li className="create-btn" onClick={showForm} key="#"><button>+ Create new note</button></li>
+                { notes.map(note => note ? <Item key={note.id} id={note.id} title={note.title} limit={limit} /> : <></>) } 
+                <li className="create-btn" onClick={showForm}><button>+ Create new note</button></li>
             </ul>
             { formVisible ? <Form title="Create new note" hideForm={hideForm} Class={Note}/> : <></>}
         </nav>);

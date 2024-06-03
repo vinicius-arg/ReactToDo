@@ -9,7 +9,8 @@ import Item from "./Item";
 import Form from "./Form";
 
 function Container({switchScreen}) {
-    const {id, note} = useSelector(state => state);
+    const id = useSelector(state => state.id);
+    const note = useSelector(state => state.note);
 
     const [formVisible, setFormVisible] = useState(false);
 
@@ -26,8 +27,8 @@ function Container({switchScreen}) {
                 <FontAwesomeIcon onClick={switchScreen} icon={faArrowLeft} className="back" />
                 <h2>{note[id]?.title}</h2>
                 <ul>
-                    { note[id]?.content.map(item => item ? <Item title={item.text} id={item.id} done={item.done} taskItem={true}></Item> : <></>) }
-                    <li className="create-btn" onClick={showForm} key="#"><button>+ Create new task</button></li>
+                    { note[id]?.content.map(task => task ? <Item key={task.id} id={task.id} title={task.text} done={task.done} taskItem={true}></Item> : <></>) }
+                    <li className="create-btn" onClick={showForm}><button>+ Create new task</button></li>
                 </ul>
                 { formVisible ? <Form  title="Create new task" hideForm={hideForm} Class={Task} parentId={id}/> : <></> }
             </div>);

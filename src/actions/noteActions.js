@@ -12,9 +12,17 @@ const deleteNoteAction = id => {
     }
 };
 
+const loadNotesAction = notes => {
+    return {
+        type: "LOAD_NOTES",
+        payload: { notes }
+    }
+};
+
 const noteActions = {
     add: addNoteAction,
-    delete: deleteNoteAction
+    delete: deleteNoteAction,
+    load: loadNotesAction
 };
 
 export default noteActions;

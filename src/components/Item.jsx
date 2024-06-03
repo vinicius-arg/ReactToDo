@@ -11,7 +11,7 @@ import taskActions from "../actions/taskActions";
 
 import Task from "../classes/Task";
 
-function Item({title, id, done, taskItem, limit}) {
+function Item({id, title, done, taskItem, limit}) {
     const noteId = useSelector(state => state.id);
     const dispatch = useDispatch();
     
@@ -21,18 +21,18 @@ function Item({title, id, done, taskItem, limit}) {
     }
 
     // Closes the note in container in case of open-deleted
-    function closeNote(childId) {
-        if (childId === id) dispatch(idActions.set(null));
+    function closeNote(noteId) {
+        if (noteId === id) dispatch(idActions.set(null));
     }
 
     function delNote(id) {
         dispatch(noteActions.delete(id));
-        closeNote(id);
+        Task.nextTaskIds[noteId] = null;
+        closeNote(noteId);
     }
 
     function delTask(taskId) {
         dispatch(taskActions.delete(noteId, taskId));
-        Task.lastTaskIds[noteId]--;
     }
 
     // Delete an item, work for both notes or tasks.
@@ -55,7 +55,7 @@ function Item({title, id, done, taskItem, limit}) {
     // Included in case of checkable item
     const input = taskItem ? <Checkbox id={id} done={done} /> : <></>
         
-    return(<li onClick={setId} className="item" key={id}>
+    return(<li onClick={setId} className="item">
             <span>
                 {input}
                 <p className={pClasses}>{limitText(title)}</p>

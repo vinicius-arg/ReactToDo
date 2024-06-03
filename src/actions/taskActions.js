@@ -12,10 +12,10 @@ const deleteTaskAction = (noteId, taskId) => {
     }
 };
 
-const doneTaskAction = (done, noteId, taskId) => {
+const doneTaskAction = (noteId, taskId) => {
     return {
-        type: "DONE",
-        payload: { done, noteId, taskId }
+        type: "TOGGLE_TASK",
+        payload: { noteId, taskId }
     }
 }
 

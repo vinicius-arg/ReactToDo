@@ -1,5 +1,5 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useSelector, useDispatch } from "react-redux";
+import { useDispatch } from "react-redux";
 import ScreenProtector from "./ScreenProtector";
 
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
@@ -9,7 +9,6 @@ import noteActions from "../actions/noteActions";
 import taskActions from "../actions/taskActions";
 
 function Form({title, hideForm, Class, parentId}) {
-    // const taskArr = useSelector(state => state.task[parentId]);
     const dispatch = useDispatch();
 
     const [text, setText] = useState('');
@@ -26,11 +25,15 @@ function Form({title, hideForm, Class, parentId}) {
 
     // Dispatch functions
     function addTask(task) {
-        dispatch(taskActions.add(parentId, task));
+        let serializableObject = {};
+        Object.assign(serializableObject, task);
+        dispatch(taskActions.add(parentId, serializableObject));
     }
 
     function addNote(note) {
-        dispatch(noteActions.add(note));
+        let serializableObject = {};
+        Object.assign(serializableObject, note);
+        dispatch(noteActions.add(serializableObject));
     }
 
     // Submits the form
