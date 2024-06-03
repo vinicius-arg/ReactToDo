@@ -1,14 +1,14 @@
 import React, { useState, useEffect } from "react";
 import { configureStore } from "@reduxjs/toolkit";
-import { Provider, useSelector } from "react-redux";
+import { Provider } from "react-redux";
 
 import idReducer from "./reducers/idReducer";
 import noteReducer from "./reducers/noteReducer";
-import taskReducer from "./reducers/taskReducer";
 
 import Title from "./components/Title";
 import Navbar from "./components/Navbar";
 import Container from "./components/Container";
+
 import Note from "./classes/Note";
 import Task from "./classes/Task";
 
@@ -19,12 +19,12 @@ const store = configureStore({
     reducer: {
         id: idReducer,
         note: noteReducer,
-        task: taskReducer
     }
-})
+});
+
+store.subscribe(() => { console.log(store.getState()) });
 
 function App() {
-    const id = 1;
     const [notes, setNotes] = useState([]);
     const [navScreen, setNavScreen] = useState(true);
     const [noteScreen, setNoteScreen] = useState(window.innerWidth > MOBILE_WINDOW_SIZE);
@@ -52,32 +52,6 @@ function App() {
         localStorage.setItem(APP_DATA_KEY, JSON.stringify(appData));
     }, [notes]);
 
-    // Mark a task as completed
-    function doneTask(event, taskId) {
-        if (notes[id]) {
-            const newNotes = [...notes];
-            newNotes[id].content.map(item => (item.id === taskId) ? item.done = event.target.checked : item);
-
-            setNotes(newNotes);
-        }
-    }
-
-    function delNote(id) {
-        const newNotes = [...notes];
-        newNotes[id] = null;
-        Task.lastTaskIds[id] = null;
-
-        setNotes(newNotes);
-    }
-
-    function delTask(taskId) {
-        const newNotes = [...notes];
-        newNotes[id].content = [...newNotes[id].content.filter(item => item.id !== taskId)];
-        Task.lastTaskIds[id]--;
-
-        setNotes(newNotes);
-    }
-
     function switchScreen() {
         setNoteScreen(false);
         setNavScreen(true);
@@ -92,25 +66,21 @@ function App() {
 
     window.onresize = handleResize;
 
-    return(<>
-        <main>
+    return(<main>
             <Provider store={store}>
                 { navScreen ? 
-                <aside className="toolbar">
-                    <Title title="Your Tasks"></Title>
-                    <Navbar delNote={delNote}>
-                    </Navbar> 
-                </aside>  : <></> }
+                    <aside className="toolbar">
+                        <Title title="Your Tasks" />
+                        <Navbar /> 
+                    </aside>  
+                : <></> }
                 { noteScreen ? 
                     <section className="note-content">
-                    <Container doneTask={doneTask} 
-                               delTask={delTask} 
-                               switchScreen={switchScreen}>
-                    </Container>
-                    </section> : <></> }
+                        <Container switchScreen={switchScreen} />
+                    </section> 
+                : <></> }
         </Provider>
-        </main>
-    </>);
+        </main>);
 }
 
 export default App;

@@ -1,12 +1,15 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useSelector, useDispatch } from "react-redux";
-import noteActions from "../actions/noteActions";
-import taskActions from "../actions/taskActions";
 import ScreenProtector from "./ScreenProtector";
+
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import { faXmark } from "@fortawesome/free-solid-svg-icons";
 
+import noteActions from "../actions/noteActions";
+import taskActions from "../actions/taskActions";
+
 function Form({title, hideForm, Class, parentId}) {
+    // const taskArr = useSelector(state => state.task[parentId]);
     const dispatch = useDispatch();
 
     const [text, setText] = useState('');
@@ -23,7 +26,7 @@ function Form({title, hideForm, Class, parentId}) {
 
     // Dispatch functions
     function addTask(task) {
-        dispatch(taskActions.add(task));
+        dispatch(taskActions.add(parentId, task));
     }
 
     function addNote(note) {

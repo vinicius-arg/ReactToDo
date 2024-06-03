@@ -1,24 +1,28 @@
-const addTaskAction = task => {
+const addTaskAction = (noteId, task) => {
     return {
         type: "ADD_TASK",
-        payload: {
-            task
-        }
+        payload: { noteId, task }
     }
 };
 
-const deleteTaskAction = id => {
+const deleteTaskAction = (noteId, taskId) => {
     return {
         type: "DELETE_TASK",
-        payload: {
-            id
-        }
+        payload: { noteId, taskId }
     }
 };
+
+const doneTaskAction = (done, noteId, taskId) => {
+    return {
+        type: "DONE",
+        payload: { done, noteId, taskId }
+    }
+}
 
 const taskActions = {
     add: addTaskAction,
-    delete: deleteTaskAction
+    delete: deleteTaskAction,
+    done: doneTaskAction
 };
 
 export default taskActions;

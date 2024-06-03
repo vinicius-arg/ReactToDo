@@ -1,9 +1,7 @@
 const setIdAction = id => {
     return {
         type: "SET",
-        payload: {
-            id
-        }
+        payload: { id }
     }
 };
 

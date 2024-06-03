@@ -1,18 +1,14 @@
 const addNoteAction = note => {
     return {
         type: "ADD_NOTE",
-        payload: {
-            note
-        }
+        payload: { note }
     }
 };
 
 const deleteNoteAction = id => {
     return {
         type: "DELETE_NOTE",
-        payload: {
-            id
-        }
+        payload: { id }
     }
 };
 

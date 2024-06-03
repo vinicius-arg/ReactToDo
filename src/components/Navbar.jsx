@@ -1,12 +1,13 @@
 import React, { useState, useEffect } from "react";
 import { useSelector, useDispatch } from "react-redux";
+
 import Item from "./Item";
 import Form from "./Form";
 import Note from "../classes/Note";
 
 const MOBILE_WINDOW_SIZE = 500;
 
-function Navbar({delNote}) {
+function Navbar() {
     const notes = useSelector(state => state.note);
 
     const [formVisible, setFormVisible] = useState(false);
@@ -32,7 +33,7 @@ function Navbar({delNote}) {
     
     return(<nav className="navbar">
             <ul>
-                { notes.map(item => item ? <Item delTask={() => {}} delNote={delNote} title={item.title} id={item.id} limit={limit} /> : <></>) } 
+                { notes.map(item => item ? <Item title={item.title} id={item.id} limit={limit} /> : <></>) } 
                 <li className="create-btn" onClick={showForm} key="#"><button>+ Create new note</button></li>
             </ul>
             { formVisible ? <Form title="Create new note" hideForm={hideForm} Class={Note}/> : <></>}
