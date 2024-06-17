@@ -28,7 +28,7 @@ function App() {
     if (!isMobile)
         return (
             <main>
-                <Router basename="ReactToDo">
+                <Router>
                     <Routes>
                         <Route path="/"
                                element={<>
@@ -44,7 +44,7 @@ function App() {
     else 
         return (
             <main>
-                <Router basename="ReactToDo">
+                <Router>
                     <Routes>
                         <Route path="/"
                                element={<Toolbar />} />
