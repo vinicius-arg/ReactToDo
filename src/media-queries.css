@@ -27,4 +27,8 @@
     .container ul {
         width: 100%;
     }
+
+    form.form {
+        width: 85%;
+    }
 }

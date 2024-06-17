@@ -40,6 +40,11 @@ ul {
   list-style: none;
 }
 
+a {
+  color: #fff;
+  text-decoration: none;
+}
+
 .navbar {
   width: 100%;
   box-sizing: border-box;
@@ -58,7 +63,6 @@ ul {
 }
 
 .back {
-  display: none;
   position: fixed;
   top: 15px;
   left: 20px;
@@ -235,6 +239,7 @@ span {
   padding: 10px 40px;
   width: 400px;
   transition: 200ms;
+  box-sizing: border-box;
 }
 
 .form * {

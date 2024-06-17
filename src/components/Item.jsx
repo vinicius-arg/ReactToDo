@@ -1,18 +1,16 @@
 import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 import Checkbox from "./Checkbox";
-
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faTrashCan } from "@fortawesome/free-regular-svg-icons";
-
 import idActions from "../actions/idActions";
 import noteActions from "../actions/noteActions";
 import taskActions from "../actions/taskActions";
-
 import Task from "../classes/Task";
 
-function Item({id, title, done, taskItem, limit}) {
+function Item({id, title, done, taskItem}) {
     const noteId = useSelector(state => state.id);
+    const textLimit = useSelector(state => state.textLimit);
     const dispatch = useDispatch();
     
     // Handle what note container shows by id
@@ -44,8 +42,8 @@ function Item({id, title, done, taskItem, limit}) {
     }
 
     function limitText(text) {
-        if (limit && text.length > limit)
-            return (text.slice(0, limit) + "...");
+        if (textLimit && text.length > textLimit)
+            return (text.slice(0, textLimit) + "...");
         else return text; 
     }
 

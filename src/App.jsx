@@ -1,50 +1,63 @@
-import React, { useState, useEffect } from "react";
-import { useDispatch } from "react-redux";
-
-import Title from "./components/Title";
-import Navbar from "./components/Navbar";
-import Container from "./components/Container";
-
-import { pullNotes } from "./storageManager";
-
-const MOBILE_WINDOW_SIZE = 500;
+import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
+import NoteContainer from "./components/NoteContainer";
+import Toolbar from "./components/Toolbar";
+import Form from "./components/Form";
+import textLimitActions from "./actions/textLimitActions";
+import isMobileActions from "./actions/isMobileActions";
+import { MOBILE_WINDOW_SIZE } from "./constants";
 
 function App() {
+    const id = useSelector(state => state.id);
+    const isMobile = useSelector(state => state.isMobile);
     const dispatch = useDispatch();
-
-    const [navScreen, setNavScreen] = useState(true);
-    const [noteScreen, setNoteScreen] = useState(window.innerWidth > MOBILE_WINDOW_SIZE);
-
-    // Pulls saved notes if it exists. Executes one time when page loads. 
-    useEffect(() => { pullNotes(dispatch) }, []);
-
-    function switchScreen() {
-        setNoteScreen(false);
-        setNavScreen(true);
+    
+    function handleResize(windowSize) {
+        dispatch(textLimitActions.set(windowSize));
+        dispatch(isMobileActions.set(windowSize));
+        if (windowSize > MOBILE_WINDOW_SIZE &&
+            window.location.pathname.includes("/notes")) {
+            window.location = "/";
+        }
     }
 
-    function handleResize() {
-        if (window.innerWidth > MOBILE_WINDOW_SIZE) {
-            setNavScreen(true);
-            setNavScreen(true);
-        }  
-    }
+    // Changes textLimit and layout when resizes.
+    window.onresize = () => { handleResize(window.innerWidth) };
 
-    window.onresize = handleResize;
-
-    return(<main>
-            { navScreen 
-            ? <aside className="toolbar">
-                <Title title="Your Tasks" />
-                <Navbar /> 
-            </aside>  
-            : <></> }
-            { noteScreen 
-            ? <section className="note-content">
-                <Container switchScreen={switchScreen} />
-                </section> 
-            : <></> }
-        </main>);
+    if (!isMobile)
+        return (
+            <main>
+                <Router>
+                    <Routes>
+                        <Route path="/"
+                               element={<>
+                                  <Toolbar/>
+                                  <NoteContainer />
+                                </>} />
+                        <Route path="/form/:class"
+                               element={<Form parentId={id}/>} />
+                    </Routes>
+                </Router>
+            </main>
+        );
+    else 
+        return (
+            <main>
+                <Router>
+                    <Routes>
+                        <Route path="/"
+                               element={<Toolbar />} />
+                        <Route path="/notes/:id"
+                               element={<NoteContainer />} />
+                        <Route path="/form/:class"
+                               element={<Form parentId={id}/>} />
+                        <Route path="*"
+                               element={<p>This Route doesn't exist.</p>} />
+                    </Routes>
+                </Router>
+            </main>
+        );
 }
 
 export default App;

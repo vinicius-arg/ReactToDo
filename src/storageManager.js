@@ -1,20 +1,18 @@
-import noteActions from "./actions/noteActions";
-
+import { APP_DATA_KEY } from "./constants";
 import Note from "./classes/Note";
 import Task from "./classes/Task";
 
-const APP_DATA_KEY = "appData";
-
 // Pulls saved notes if it exists.
-const pullNotes = dispatch => {
+const pullNotes = () => {
     const appData = JSON.parse(localStorage.getItem(APP_DATA_KEY));
     const localNotes = appData ? appData.savedNotes : [];
 
     if (localNotes && localNotes.length) {
         Note.nextId = appData.nextId;
         Task.nextTaskIds = [...appData.taskIdArray];
-        dispatch(noteActions.load(localNotes));
-    }
+        return localNotes;
+    } else 
+        return [];
 }
 
 // Save notes and important parameters on every change.
